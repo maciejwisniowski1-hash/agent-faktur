@@ -150,19 +150,29 @@ wyniki.append({
             })
 
 raport=pd.DataFrame(wyniki)
-st.dataframe(raport, use_container_width=True)
+
+st.dataframe(
+    raport, 
+    use_container_width=True
+)
+
 out=BytesIO()
+
 with pd.ExcelWriter(
     out, 
     engine='openpyxl'
 ) as writer:
-            raport.to_excel(
+    
+raport.to_excel(
                 writer, 
                 sheet_name='Wszystkie', 
                 index=False
             )
+
 out.seek(0)
+
 st.download_button('
 📥 Pobierz raport', 
 out, 
-'raport_faktur.xlsx')
+'raport_faktur.xlsx'
+)
