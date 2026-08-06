@@ -53,6 +53,16 @@ def score_payment(numer,nip,kontrahent,kwota_faktury,opis,kwota):
         score += 15
     if abs(kwota-kwota_faktury) <= TOLERANCJA_KWOTY:
         score += 20
+        ratio = abs(
+    kwota -
+    kwota_faktury
+) / max(
+    kwota_faktury,
+    1
+)
+
+if ratio > 0.50:
+    score -= 100
     return score
 
 
@@ -95,12 +105,40 @@ if st.button('🔍 ANALIZUJ'):
             kontr=str(row['Kontrahent'])
             nip=str(row['NIP'])
             kwf=float(row['Brutto'])
-            dop=[]
-            for p in platnosci:
-                s=score_payment(numer,nip,kontr,kwf,p['opis'],p['kwota'])
-                if s>=50:
-                    dop.append(p['kwota'])
-            suma=round(sum(dop),2)
+            najlepsza_kwota = 0
+najlepszy_score = 0
+
+for p in platnosci:
+
+    s = score_payment(
+        numer,
+        nip,
+        kontr,
+        kwf,
+        p['opis'],
+        p['kwota']
+    )
+
+    kwota_ratio = min(
+        kwf,
+        p['kwota']
+    ) / max(
+        kwf,
+        p['kwota']
+    )
+
+    if (
+        s > najlepszy_score
+        and kwota_ratio >= 0.50
+    ):
+
+        najlepszy_score = s
+        najlepsza_kwota = p['kwota']
+
+suma = round(
+    najlepsza_kwota,
+    2
+)
             wyniki.append({
                 'Numer dokumentu':numer,
                 'Kontrahent':kontr,
