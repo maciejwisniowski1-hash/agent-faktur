@@ -149,8 +149,8 @@ wyniki.append({
                 'Status':status_platnosci(suma,kwf)
             })
 
-        raport=pd.DataFrame(wyniki)
-        st.dataframe(raport, use_container_width=True)
+raport=pd.DataFrame(wyniki)
+st.dataframe(raport, use_container_width=True)
 
         out=BytesIO()
         with pd.ExcelWriter(out, engine='openpyxl') as writer:
