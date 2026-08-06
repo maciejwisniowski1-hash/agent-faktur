@@ -171,8 +171,9 @@ raport.to_excel(
 
 out.seek(0)
 
-st.download_button('
-📥 Pobierz raport', 
-out, 
-'raport_faktur.xlsx'
+st.download_button(
+    "📥 Pobierz raport",
+    data=out,
+    file_name="raport_faktur.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
