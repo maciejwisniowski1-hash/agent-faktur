@@ -157,12 +157,7 @@ st.dataframe(
 )
 
 out=BytesIO()
-
-with pd.ExcelWriter(
-    out, 
-    engine='openpyxl'
-) as writer:
-    
+  
 with pd.ExcelWriter(
     out,
     engine='openpyxl'
