@@ -139,7 +139,7 @@ suma = round(
     najlepsza_kwota,
     2
 )
-            wyniki.append({
+wyniki.append({
                 'Numer dokumentu':numer,
                 'Kontrahent':kontr,
                 'NIP':nip,
