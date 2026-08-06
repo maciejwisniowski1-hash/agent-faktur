@@ -163,11 +163,16 @@ with pd.ExcelWriter(
     engine='openpyxl'
 ) as writer:
     
-raport.to_excel(
-                writer, 
-                sheet_name='Wszystkie', 
-                index=False
-            )
+with pd.ExcelWriter(
+    out,
+    engine='openpyxl'
+) as writer:
+
+    raport.to_excel(
+        writer,
+        sheet_name='Wszystkie',
+        index=False
+    )
 
 out.seek(0)
 
